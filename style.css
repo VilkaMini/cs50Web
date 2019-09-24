@@ -1,0 +1,50 @@
+#tablet {
+    width: 100%;
+    height: 1000px;
+}
+#firstRow {
+    background-color: yellow;
+}
+
+.secondRow {
+    background-color: green;
+}
+
+#thirdRow {
+    background-color: red;
+}
+
+.firstDiv {
+    background-color: blue;
+    height: 400px;
+    width: 400px;
+    /* display: inline-block; */
+    float: left;
+}
+
+.secondDiv {
+    background-color: green;
+    height: 400px;
+    width: 400px;
+    /* display: inline-block; */
+    float: left;
+}
+
+.thirdDiv {
+    background-color: hotpink;
+    height: 400px;
+    width: 400px;
+    clear: left;
+    position: absolute;
+    top: 79px;
+    left: 200px;
+}
+
+#a{
+    height: 20px;
+    width: 100px;
+    background-color: black;
+    position: absolute;
+    top: 350px;
+    left: 340px;
+}
