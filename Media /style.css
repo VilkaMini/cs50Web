@@ -1,0 +1,24 @@
+#box {
+    background-color: red;
+    width: 500px;
+    height: 500px;
+}
+@media (min-width: 800px) {
+    #box {
+        background-color: blue;
+    }
+}
+
+@media (min-height: 800px) {
+    #box {
+        background-color: green;
+    }
+}
+
+#box:hover {
+    transition: background-color 4s, height 4s, transform 1s;
+    height: 300px;
+    background-color: yellow;
+    transform: rotateX(10000deg);
+    transform: rotateY(10000deg);
+}
