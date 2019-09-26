@@ -1,3 +1,27 @@
 body {
     margin: 0;
 }
+
+#triangle {
+    width: 1px;
+    height: 1px;
+    border-top: 100px solid transparent;
+    border-left: 100px solid transparent;
+    border-bottom: 100px solid;
+    border-right: 100px solid transparent;
+}
+
+#round {
+    width: 1px;
+    background-color: black;
+    border-top: 100px solid;
+    border-left: 100px solid ;
+    border-bottom: 100px solid;
+    border-right: 100px solid ;
+    border-radius: 500px;
+    border-color: black;
+}
+
+#flex {
+    display: flex;
+}
