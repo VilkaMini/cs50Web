@@ -11,7 +11,7 @@
 }
 @keyframes move {
     0% {top: 10px; left: 10px;}
-    50% {top: 250px; left: 250px; width: 500px; height: 250px;}
+    50% {top: 250px; width: 500px; height: 250px;}
     100% {top: 10px; left: 10px;}
 }
 #objects {
@@ -27,8 +27,8 @@
 }
 
 @keyframes reds {
-    0% {top: 10px; left: 0px;}
-    50% {top: 500px; left: 500px; width: 500px; height: 250px;}
+    0% {top: 10px; left: 10px;}
+    50% {top: 500px; width: 500px; height: 250px;}
     100% {top: 10px; left: 10px;}
 }
 
@@ -45,7 +45,7 @@
 }
 
 @keyframes blues {
-    0% {top: 10px; left: 0px;}
-    50% {top: 750px; left: 750px; width: 500px; height: 250px;}
+    0% {top: 10px; left: 10px;}
+    50% {top: 750px; width: 500px; height: 250px;}
     100% {top: 10px; left: 10px;}
 }
