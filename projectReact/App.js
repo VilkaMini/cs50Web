@@ -18,6 +18,7 @@ import {
 
 import ManoKomponentas from './project/components/testComponent';
 import HeaderDiv from './project/components/headerComponent';
+import FooterDiv from './project/components/footerComponent';
 
 
 import {
@@ -35,6 +36,7 @@ const App = () => {
     <>
       <HeaderDiv headerText="TestHeader"/>
       <ManoKomponentas tekstas="Test Clicker" />
+      <FooterDiv footerText="Test Footer"/>
     </>
   );
 };
