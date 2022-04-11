@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css">
+    </head>
+    <body>
+        <div id="parent">
+            <textarea placeholder="Username" name="name" id="input"></textarea>
+            <button onclick="usernameRegister()" id="button1">Login</button>
+            <textarea placeholder="Message" name="message" id="message"></textarea>
+            <button onclick="messageSend()" id="button3">Send</button>
+        </div>
+        <div id="messageBoard"></div>
+        <div id="channelHolder">
+                <textarea placeholder="Create channel" name="channel" id="channel"></textarea>
+                <button onclick="channel()" id="button2">Create</button>
+                <div id="channels"></div>
+        </div>
+    </body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+        //////////////////
+        var socket = io();
+        socket.on('connect', function() {
+            socket.emit('con', {data: 'I\'m connected!'});
+        });
+        //////////////////
+        function usernameRegister() {
+            var userName = document.getElementById("input").value
+            const name = document.createElement('div')
+            name.className = 'usernameDiv'
+            name.innerHTML = userName
+            document.querySelector('#input').style.visibility = 'hidden'
+            document.querySelector('#button1').remove()
+            document.querySelector('#parent').prepend(name)
+            socket.emit('user', {username: userName})
+        }
+        //////////////////
+        function messageSend() {
+            console.log("Message Sent")
+            var userName = document.getElementById("input").value;
+            if (!userName) {
+                return;
+            }
+            var messageS = document.getElementById("message").value;
+            var timeS = new Date().toLocaleTimeString();
+            socket.emit('message', {message: messageS, username: userName, time: timeS})
+        }
+        ///////////////////
+        var msgA = [];
+        socket.on('chatMessage', function(msg){
+            console.log("Message Received")
+            msgA.push(msg)
+            var divA = []
+            msgA.forEach(message => {
+                const messageS = document.createElement('div')
+                messageS.className = 'messages'
+                messageS.innerHTML = message
+                divA.push(messageS)});
+            if (msgA.length > 100)
+            {
+                msgA.shift();
+            }
+            document.getElementById("messageBoard").innerHTML = "";
+            divA.forEach( div => {
+                document.querySelector('#messageBoard').append(div) 
+            })
+        })
+        ////////////////////
+        var channels = []
+        function channel() {
+            console.log("Channel created")
+            let channelName = document.getElementById('channel').value;
+            if (!channelName) {
+                return;
+            } 
+            let inners = []
+            channels.forEach(numberC => {
+                inners.push(numberC.innerHTML)
+            });
+            if (inners.includes(channelName)) {
+                return;
+            }
+            else {
+                const channel = document.createElement('button')
+                channel.className = 'channelDiv'
+                channel.innerHTML = channelName
+                channel.onclick = function() { room(channelName) }
+                channels.push(channel)
+                document.getElementById("channels").innerHTML = "";
+                channels.forEach( div => {
+                    document.querySelector('#channels').append(div) 
+                })
+            }
+            socket.emit('channelToServer', {channel: channelName})
+            };
+        /////////////////////
+        function room(channelName) {
+            console.log("Joins Room")
+            let userName = document.getElementById('input').value
+            socket.emit('join', {username: userName, room: channelName})
+        }
+        /////////////////////
+        socket.on('channelChange', function(passed) {
+            console.log("Channel Changed")
+            msgA = passed
+            var divA = []
+            msgA.forEach(message => {
+                const messageS = document.createElement('div')
+                messageS.className = 'messages'
+                messageS.innerHTML = message
+                divA.push(messageS)});
+            document.getElementById("messageBoard").innerHTML = "";
+            divA.forEach( div => {
+                document.querySelector('#messageBoard').append(div) 
+            })
+        })
+        //////////////////////
+        socket.on('load', function(recieved){
+            console.log("Loads")
+            //////////
+            let rUsername = recieved['username'][0]
+            let rChannels = recieved['channelList']
+            let rCurChannel = recieved['currentChannel'][0]
+            let rHolder = recieved['holder']
+            //////////
+            if (rUsername) {
+                const name = document.createElement('div')
+                name.className = 'usernameDiv'
+                name.innerHTML = rUsername
+                document.querySelector('#input').style.visibility = 'hidden'
+                document.querySelector('#button1').remove()
+                document.querySelector('#parent').prepend(name)
+            }
+            //////////
+            rChannels.forEach(rChannel => {
+                const channel = document.createElement('button')
+                channel.className = 'channelDiv'
+                channel.innerHTML = rChannel
+                channel.onclick = function() { room(rChannel) }
+                channels.push(channel)
+                document.getElementById("channels").innerHTML = "";
+                channels.forEach( div => {
+                    document.querySelector('#channels').append(div) 
+                })
+            });
+            //////////
+        })
+    </script>
+</html>

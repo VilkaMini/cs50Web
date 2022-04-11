@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>Register</title>
+            <link rel="stylesheet" type="text/css" href="../static/style.css">
+        </head>
+        <body>
+            <div class="parent">
+                    <form action="/register" method="POST">
+                        <div class="child">
+                            <input id="usernameField" type="text" name="username" placeholder="Username">
+                            <input id="passwordField" type="password" name="password" placeholder="Password">
+                            <button id="submitBut" type="submit" name="registerBut">Register</button>
+                        </div>
+                    </form>
+                <a href="/logout"><button id="registerButr" type="button" action="/logout" name="logout">Logout</button></a>
+            </div>
+        </body>
+    </html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"> 
+    </head>
+    <body>
+        <Div id="parent">
+            <form class="logreg" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <input class="settings" name="username" type="text" placeholder="Username" autocomplete="off" required/>
+                <input class="settings" name="password" type="password" placeholder="Password" autocomplete="off" required/>
+                <input class="settings" type="submit" value="Login"/>
+                <a class="loginout" href="{% url 'register' %}">Register</a>
+            </form>
+        </Div>
+    </body>
+</html>
